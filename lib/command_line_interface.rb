@@ -54,9 +54,24 @@ def pokemon_options(parsed_pokemon)
   puts "Enter: 'id' to return your pokemon's PokeDex ID\n"
   puts "Enter: 'height' to return your pokemon's height\n"
   puts "Enter: 'weight' to return your pokemon's weight\n"
+  puts "OR enter 'q' to exit the application."
 user_choice = gets.chomp.downcase
+case user_choice
+when 'abilties'
+  puts "abilities!"
+when 'id'
+  puts 'id!'
+when 'height'
+  puts "height!"
+when  'weight'
+  puts "weight!"
+when 'q'
+  puts "You want to quit?!?!"
+else
+  puts "Sorry, I didn't understand the request. Please enter one of the menu items above."
+end
 #depending on the user's entry, iterate into the proper level of the specific pokemon hash
 #return appropriate values in the form
-user_choice
+#user_choice
 binding.pry
 end
