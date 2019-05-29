@@ -55,44 +55,81 @@ def pokemon_options(parsed_pokemon)
   puts "Enter 3: 'height' to return your pokemon's height\n"
   puts "Enter 4: 'weight' to return your pokemon's weight\n"
   puts "Enter 'q': to exit the application."
-user_choice = gets.chomp.downcase
-case user_choice
-when "1"
-  get_abilities(parsed_pokemon)
-when "2"
-  puts "id!"
-when "3"
-  puts "height!"
-when "4"
-  puts "weight!"
-when "q"
-  puts "You want to quit?!?!"
-else
-  puts "Sorry, I didn't understand the request. Please enter one of the menu items above."
+  user_choice = gets.chomp.downcase
+    case user_choice
+    when "1"
+      get_abilities(parsed_pokemon)
+    when "2"
+      get_pokedex_id(parsed_pokemon)
+    when "3"
+      get_pokemon_height(parsed_pokemon)
+    when "4"
+      get_pokemon_weight(parsed_pokemon)
+    when "q"
+      exit_info_dex
+    else
+      puts "Sorry, I didn't understand the request"
+      pokemon_options(parsed_pokemon)
+    end
 end
-#depending on the user's entry, iterate into the proper level of the specific pokemon hash
-#return appropriate values in the form
-#user_choice
-
-end
-
 
 def get_abilities(parsed_pokemon)
   all_abilities = []
   parsed_pokemon["abilities"].each do |category|
     category["ability"].select do |key, value|
       if key == "name"
-      all_abilities << value
-      end
+        all_abilities << value
       end
     end
+  end
     p all_abilities
     puts "Would like to find out more about your Pokemon? (Y/N)"
     user_selection = gets.chomp.downcase
       if user_selection == "y"
         pokemon_options(parsed_pokemon)
-        binding.pry
       else
-        ##terminate application
+        exit_info_dex
       end
+end
+
+def get_pokemon_height(parsed_pokemon)
+  pokemon_height = parsed_pokemon["height"]
+  p "Your Pokemon's height is #{pokemon_height/10.0}m"
+  puts "Would like to find out more about your Pokemon? (Y/N)"
+  user_selection = gets.chomp.downcase
+    if user_selection == "y"
+      pokemon_options(parsed_pokemon)
+    else
+      exit_info_dex
+    end
+end
+
+def get_pokemon_weight(parsed_pokemon)
+  pokemon_weight = parsed_pokemon["weight"]
+  p "Your Pokemon's weight is #{pokemon_weight}lbs"
+  puts "Would like to find out more about your Pokemon? (Y/N)"
+  user_selection = gets.chomp.downcase
+    if user_selection == "y"
+      pokemon_options(parsed_pokemon)
+    else
+      exit_info_dex
+    end
+end
+
+def get_pokedex_id(parsed_pokemon)
+  poke_id = parsed_pokemon["id"]
+  p "Your Pokemon's PokeDex ID# is #{poke_id}."
+  puts "Would like to find out more about your Pokemon? (Y/N)"
+  user_selection = gets.chomp.downcase
+    if user_selection == "y"
+      pokemon_options(parsed_pokemon)
+    else
+      exit_info_dex
+    end
+end
+
+def exit_info_dex
+  puts "Thank you for using our InfoDex!!"
+# binding.pry
+  exit
 end
