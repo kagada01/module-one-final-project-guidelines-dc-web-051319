@@ -50,22 +50,22 @@ end
 def pokemon_options(parsed_pokemon)
   puts "Thank you for selecting your Pokemon!"
   puts "Please see the InfoDex Menu below: \n\n"
-  puts "Enter: 'abilities' to return all of your pokemon's abilities\n"
-  puts "Enter: 'id' to return your pokemon's PokeDex ID\n"
-  puts "Enter: 'height' to return your pokemon's height\n"
-  puts "Enter: 'weight' to return your pokemon's weight\n"
-  puts "OR enter 'q' to exit the application."
+  puts "Enter 1: 'abilities' to return all of your pokemon's abilities\n"
+  puts "Enter 2: 'id' to return your pokemon's PokeDex ID\n"
+  puts "Enter 3: 'height' to return your pokemon's height\n"
+  puts "Enter 4: 'weight' to return your pokemon's weight\n"
+  puts "Enter 'q': to exit the application."
 user_choice = gets.chomp.downcase
 case user_choice
-when 'abilties'
-  puts "abilities!"
-when 'id'
-  puts 'id!'
-when 'height'
+when "1"
+  get_abilities(parsed_pokemon)
+when "2"
+  puts "id!"
+when "3"
   puts "height!"
-when  'weight'
+when "4"
   puts "weight!"
-when 'q'
+when "q"
   puts "You want to quit?!?!"
 else
   puts "Sorry, I didn't understand the request. Please enter one of the menu items above."
@@ -73,5 +73,26 @@ end
 #depending on the user's entry, iterate into the proper level of the specific pokemon hash
 #return appropriate values in the form
 #user_choice
-binding.pry
+
+end
+
+
+def get_abilities(parsed_pokemon)
+  all_abilities = []
+  parsed_pokemon["abilities"].each do |category|
+    category["ability"].select do |key, value|
+      if key == "name"
+      all_abilities << value
+      end
+      end
+    end
+    p all_abilities
+    puts "Would like to find out more about your Pokemon? (Y/N)"
+    user_selection = gets.chomp.downcase
+      if user_selection == "y"
+        pokemon_options(parsed_pokemon)
+        binding.pry
+      else
+        ##terminate application
+      end
 end
